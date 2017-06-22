@@ -1,0 +1,13 @@
+{
+  "upstream": {
+    "multicast-interface": "{{ pmd_multicast_interface }}",
+    "multicast-group": "{{ pmd_multicast_group }}",
+    "multicast-port": "{{ pmd_multicast_port }}",
+    "request-address": "127.0.0.1",
+    "request-port": "{{ pmd_request_port }}"
+  },
+  "downstream": {
+    "address": "0.0.0.0",
+    "port": {{ pmd_port }}
+  }
+}

@@ -1,0 +1,76 @@
+---
+- name: download archive
+  get_url:
+    url: "{{ parity_archive_url }}"
+    dest: "/tmp/{{ parity_archive }}"
+- name: extract archive
+  unarchive:
+    src: "/tmp/{{ parity_archive }}"
+    remote_src: yes
+    dest: "/tmp"
+    creates: "/tmp/{{ parity_archive_dir }}"
+- name: create directories
+  file:
+    name: "/opt/parity/files"
+    state: directory
+  become: yes
+- name: copy applications
+  copy:
+    src: "/tmp/{{ parity_archive_dir }}/{{ item.src }}/{{ item.name }}"
+    dest: "{{ item.dest }}/{{ item.name }}"
+  with_items:
+    - name: "parity-fix.jar"
+      src: "applications/fix"
+      dest: "/opt/parity"
+    - name: "parity-system.jar"
+      src: "applications/system"
+      dest: "/opt/parity"
+    - name: "parity-client.jar"
+      src: "applications/client"
+      dest: "/opt/parity/files"
+    - name: "parity-ticker.jar"
+      src: "applications/ticker"
+      dest: "/opt/parity/files"
+  become: yes
+- name: create configuration files
+  template:
+    src="{{ item.name }}.j2"
+    dest="{{ item.dest }}/{{ item.name }}"
+  with_items:
+    - name: "parity-fix.json"
+      dest: "/opt/parity"
+    - name: "parity-system.json"
+      dest: "/opt/parity"
+    - name: "parity-client.conf"
+      dest: "/opt/parity/files"
+    - name: "parity-ticker.conf"
+      dest: "/opt/parity/files"
+  become: yes
+- name: create unit files
+  template:
+    src="java-application.service.j2"
+    dest="/etc/systemd/system/{{ item.dest }}"
+  vars:
+    name: "{{ item.name }}"
+    jar_file: "{{ item.jar_file }}"
+    configuration_file: "{{ item.configuration_file }}"
+  with_items:
+    - dest: "parity-fix.service"
+      name: "Parity FIX Gateway"
+      jar_file: "/opt/parity/parity-fix.jar"
+      configuration_file: "/opt/parity/parity-fix.json"
+    - dest: "parity-system.service"
+      name: "Parity Trading System"
+      jar_file: "/opt/parity/parity-system.jar"
+      configuration_file: "/opt/parity/parity-system.json"
+  become: yes
+  notify: reload systemd
+- name: enable services
+  service:
+    name: "{{ item }}"
+    enabled: yes
+    state: started
+  with_items:
+    - "parity-fix"
+    - "parity-system"
+  become: yes

@@ -1,0 +1,10 @@
+[Unit]
+Description={{ name }}
+After=network-online.target
+
+[Service]
+ExecStart=/usr/bin/java -jar {{ jar_file }} {{ configuration_file }}
+SuccessExitStatus=143
+
+[Install]
+WantedBy=multi-user.target

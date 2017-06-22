@@ -1,0 +1,41 @@
+- name: download archive
+  get_url:
+    url: "{{ nassau_archive_url }}"
+    dest: "/tmp/{{ nassau_archive }}"
+- name: extract archive
+  unarchive:
+    src: "/tmp/{{ nassau_archive }}"
+    remote_src: yes
+    dest: "/tmp"
+    creates: "/tmp/{{ nassau_archive_dir }}"
+- name: create directory
+  file:
+    name: "/opt/nassau"
+    state: directory
+  become: yes
+- name: copy application
+  copy:
+    src: "/tmp/{{ nassau_archive_dir }}/applications/soupbintcp-gateway/nassau-soupbintcp-gateway.jar"
+    dest: "/opt/nassau/nassau-soupbintcp-gateway.jar"
+  become: yes
+- name: create configuration file
+  template:
+    src="nassau-market-data-gateway.json.j2"
+    dest="/opt/nassau/nassau-market-data-gateway.json"
+  become: yes
+- name: create unit file
+  template:
+    src="java-application.service.j2"
+    dest="/etc/systemd/system/nassau-market-data-gateway.service"
+  vars:
+    name: "Nassau Market Data Gateway"
+    jar_file: "/opt/nassau/nassau-soupbintcp-gateway.jar"
+    configuration_file: "/opt/nassau/nassau-market-data-gateway.json"
+  become: yes
+  notify: reload systemd
+- name: enable service
+  service:
+    name: "nassau-market-data-gateway"
+    enabled: yes
+    state: started
+  become: yes

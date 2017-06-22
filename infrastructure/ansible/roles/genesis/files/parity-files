@@ -1,0 +1,9 @@
+server {
+	listen 80 default_server;
+	listen [::]:80 default_server;
+
+	location / {
+		autoindex on;
+		root /opt/parity/files;
+	}
+}

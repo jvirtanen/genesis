@@ -1,0 +1,17 @@
+{
+  "private": true,
+  "scripts": {
+    "test": "mocha"
+  },
+  "dependencies": {
+    "collections": "5.0.6",
+    "parity-pmd": "0.3.0",
+    "parity-poe": "0.2.0",
+    "request": "2.81.0",
+    "soupbintcp": "0.1.2",
+    "ws": "3.0.0"
+  },
+  "devDependencies": {
+    "mocha": "3.4.2"
+  }
+}

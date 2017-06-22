@@ -1,0 +1,20 @@
+#
+# This is a Parity Stock Ticker configuration file for Genesis. For more
+# information on Parity, see:
+#
+#   https://github.com/paritytrading/parity
+#
+
+market-data {
+  multicast-interface = {{ host_address }}
+  multicast-group     = {{ pmd_multicast_group }}
+  multicast-port      = {{ pmd_multicast_port }}
+  request-address     = {{ guest_address }}
+  request-port        = {{ pmd_request_port }}
+}
+
+instruments = [
+{% for product_id in product_ids %}
+  {{ product_id }},
+{% endfor %}
+]

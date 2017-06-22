@@ -1,0 +1,17 @@
+---
+- name: install apt key
+  apt_key:
+    url: "https://deb.nodesource.com/gpgkey/nodesource.gpg.key"
+    state: present
+  become: yes
+- name: install apt repository
+  apt_repository:
+    repo: "deb https://deb.nodesource.com/node_6.x xenial main"
+    state: present
+  become: yes
+- name: install node
+  apt:
+    name: "nodejs"
+    state: present
+    update_cache: yes
+  become: yes

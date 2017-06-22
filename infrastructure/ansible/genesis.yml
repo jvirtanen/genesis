@@ -1,0 +1,5 @@
+---
+- hosts: all
+  roles:
+    - genesis
+  become_method: sudo

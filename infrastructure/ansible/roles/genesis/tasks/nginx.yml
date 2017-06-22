@@ -1,0 +1,23 @@
+---
+- name: install nginx
+  apt:
+    name: nginx
+    state: present
+  become: yes
+- name: disable default site
+  file:
+    path: "/etc/nginx/sites-enabled/default"
+    state: absent
+  become: yes
+- name: copy files site
+  copy:
+    src: "parity-files"
+    dest: "/etc/nginx/sites-available"
+  become: yes
+- name: enable files site
+  file:
+    src: "/etc/nginx/sites-available/parity-files"
+    dest: "/etc/nginx/sites-enabled/parity-files"
+    state: link
+  become: yes
+  notify: reload nginx

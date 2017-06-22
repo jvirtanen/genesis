@@ -1,0 +1,118 @@
+#!/usr/bin/env node
+
+'use strict';
+
+const MessageTranslator = require('../lib/MessageTranslator');
+const OrderBook = require('../lib/OrderBook');
+const PMD = require('parity-pmd');
+const POE = require('parity-poe');
+const gdax = require('../lib/gdax');
+const soupbintcp = require('soupbintcp');
+
+const GDAX_API_URL = String(process.env.GDAX_API_URL || 'https://api.gdax.com');
+const GDAX_WEBSOCKET_FEED_URL = String(process.env.GDAX_WEBSOCKET_FEED_URL || 'wss://ws-feed.gdax.com');
+
+const GDAX_PRODUCT_ID = String(process.env.GDAX_PRODUCT_ID || 'BTC-USD');
+
+const PARITY_INSTRUMENT = instrument(process.env.PARITY_INSTRUMENT || GDAX_PRODUCT_ID);
+
+const PARITY_MARKET_DATA_ADDRESS = String(process.env.PARITY_MARKET_DATA_ADDRESS);
+const PARITY_MARKET_DATA_PORT = Number(process.env.PARITY_MARKET_DATA_PORT);
+const PARITY_MARKET_DATA_USERNAME = String(process.env.PARITY_MARKET_DATA_USERNAME);
+const PARITY_MARKET_DATA_PASSWORD = String(process.env.PARITY_MARKET_DATA_PASSWORD);
+
+const PARITY_ORDER_ENTRY_ADDRESS = String(process.env.PARITY_ORDER_ENTRY_ADDRESS);
+const PARITY_ORDER_ENTRY_PORT = Number(process.env.PARITY_ORDER_ENTRY_PORT);
+const PARITY_ORDER_ENTRY_USERNAME = String(process.env.PARITY_ORDER_ENTRY_USERNAME);
+const PARITY_ORDER_ENTRY_PASSWORD = String(process.env.PARITY_ORDER_ENTRY_PASSWORD);
+
+const book = new OrderBook();
+
+const orderIds = new Map();
+
+const orderEntry = login({
+  address: PARITY_ORDER_ENTRY_ADDRESS,
+  port: PARITY_ORDER_ENTRY_PORT,
+  username: PARITY_ORDER_ENTRY_USERNAME,
+  password: PARITY_ORDER_ENTRY_PASSWORD,
+});
+
+orderEntry.on('message', (payload) => {
+  const message = POE.parseOutbound(payload);
+
+  if (message.messageType === 'A') {
+    if (!book.associate(message.orderNumber, message.orderId))
+      orderIds.set(message.orderNumber, message.orderId);
+  }
+});
+
+const marketData = login({
+  address: PARITY_MARKET_DATA_ADDRESS,
+  port: PARITY_MARKET_DATA_PORT,
+  username: PARITY_MARKET_DATA_USERNAME,
+  password: PARITY_MARKET_DATA_PASSWORD,
+});
+
+marketData.on('message', (payload) => {
+  const message = PMD.parse(payload);
+
+  switch (message.messageType) {
+  case 'A':
+    if (message.instrument !== PARITY_INSTRUMENT)
+      return;
+
+    const orderNumber = message.orderNumber;
+
+    book.add(orderNumber, message.side, message.price, message.quantity);
+
+    const orderId = orderIds.get(orderNumber);
+    if (orderId) {
+      book.associate(orderNumber, orderId);
+      orderIds.delete(orderNumber);
+    }
+
+    break;
+  case 'E':
+    book.reduce(message.orderNumber, message.quantity);
+    break;
+  case 'X':
+    book.reduce(message.orderNumber, message.canceledQuantity);
+    break;
+  case 'D':
+    book.delete(message.orderNumber);
+    break;
+  default:
+    break;
+  }
+});
+
+const translator = new MessageTranslator(book, PARITY_INSTRUMENT);
+
+gdax.connect({
+  apiUrl: GDAX_API_URL,
+  websocketFeedUrl: GDAX_WEBSOCKET_FEED_URL,
+  productId: GDAX_PRODUCT_ID,
+}, (gdaxMessage) => {
+  const parityMessage = translator.translate(gdaxMessage);
+  if (!parityMessage)
+    return;
+
+  orderEntry.send(POE.formatInbound(parityMessage));
+});
+
+function login(options) {
+  const client = soupbintcp.createClient(options.port, options.address, () => {
+    client.login({
+      username: options.username,
+      password: options.password,
+      requestedSession: '',
+      requestedSequenceNumber: 0,
+    });
+  });
+
+  return client;
+}
+
+function instrument(value) {
+  return (value + ' '.repeat(8)).slice(0, 8);
+}

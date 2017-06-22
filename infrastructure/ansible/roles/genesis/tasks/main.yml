@@ -1,0 +1,8 @@
+---
+- include: base.yml
+- include: openjdk.yml
+- include: nassau.yml
+- include: parity.yml
+- include: nginx.yml
+- include: node.yml
+- include: genesis-replicator.yml
