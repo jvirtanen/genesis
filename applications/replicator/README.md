@@ -78,3 +78,7 @@ Run the application:
 ```
 (. etc/example.sh; ./bin/genesis-replicator)
 ```
+
+## License
+
+Released under the Apache License, Version 2.0.

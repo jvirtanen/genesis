@@ -134,3 +134,9 @@ Genesis is a Ubuntu 16.04 server that runs the following services:
   [Genesis Replicator]: applications/replicator
 
 - `nginx.service`: a Web server hosting the bundled Parity applications.
+
+## License
+
+Copyright 2017 Jussi Virtanen.
+
+Released under the Apache License, Version 2.0. See `LICENSE.txt` for details.
