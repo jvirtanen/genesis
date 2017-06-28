@@ -1,8 +1,10 @@
 # Genesis
 
-Genesis replicates [GDAX][] in a local environment.
+Genesis replicates [GDAX][], the digital currency exchange operated by
+[Coinbase][], in a local environment.
 
   [GDAX]: https://www.gdax.com
+  [Coinbase]: https://www.coinbase.com
 
 Genesis listens to GDAX market data and replicates market events in real time
 on a local [Parity][] instance. The GDAX order books BTC-USD, BTC-EUR, BTC-GBP,
