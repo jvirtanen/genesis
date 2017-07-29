@@ -101,7 +101,9 @@ gdax.connect({
 });
 
 function login(options) {
-  const client = soupbintcp.createClient(options.port, options.address, () => {
+  const client = new soupbintcp.Client(options);
+
+  client.on('connect', () => {
     client.login({
       username: options.username,
       password: options.password,
