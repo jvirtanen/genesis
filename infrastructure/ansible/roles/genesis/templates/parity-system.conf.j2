@@ -1,0 +1,28 @@
+market-data {
+  session             = genesis
+  multicast-interface = {{ pmd_multicast_interface }}
+  multicast-group     = {{ pmd_multicast_group }}
+  multicast-port      = {{ pmd_multicast_port }}
+  request-address     = 0.0.0.0
+  request-port        = {{ pmd_request_port }}
+}
+
+market-report {
+  session             = genesis
+  multicast-interface = {{ pmr_multicast_interface }}
+  multicast-group     = {{ pmr_multicast_group }}
+  multicast-port      = {{ pmr_multicast_port }}
+  request-address     = 0.0.0.0
+  request-port        = {{ pmr_request_port }}
+}
+
+order-entry {
+  address = 0.0.0.0
+  port    = {{ poe_port }}
+}
+
+instruments = [
+{% for product_id in product_ids %}
+  {{ product_id }},
+{% endfor %}
+]

@@ -39,7 +39,7 @@
   with_items:
     - name: "parity-fix.conf"
       dest: "/opt/parity"
-    - name: "parity-system.json"
+    - name: "parity-system.conf"
       dest: "/opt/parity"
     - name: "parity-client.conf"
       dest: "/opt/parity/files"
@@ -62,7 +62,7 @@
     - dest: "parity-system.service"
       name: "Parity Trading System"
       jar_file: "/opt/parity/parity-system.jar"
-      configuration_file: "/opt/parity/parity-system.json"
+      configuration_file: "/opt/parity/parity-system.conf"
   become: yes
   notify: reload systemd
 - name: enable services
