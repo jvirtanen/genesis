@@ -37,7 +37,7 @@
     src="{{ item.name }}.j2"
     dest="{{ item.dest }}/{{ item.name }}"
   with_items:
-    - name: "parity-fix.json"
+    - name: "parity-fix.conf"
       dest: "/opt/parity"
     - name: "parity-system.json"
       dest: "/opt/parity"
@@ -58,7 +58,7 @@
     - dest: "parity-fix.service"
       name: "Parity FIX Gateway"
       jar_file: "/opt/parity/parity-fix.jar"
-      configuration_file: "/opt/parity/parity-fix.json"
+      configuration_file: "/opt/parity/parity-fix.conf"
     - dest: "parity-system.service"
       name: "Parity Trading System"
       jar_file: "/opt/parity/parity-system.jar"
