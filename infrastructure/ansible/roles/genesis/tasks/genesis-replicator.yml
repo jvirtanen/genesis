@@ -12,7 +12,6 @@
     - "bin"
     - "lib"
     - "package.json"
-    - "package-lock.json"
   become: yes
 - name: install dependencies
   npm:
