@@ -24,9 +24,6 @@ Genesis has the following limitations:
 - The GDAX order books ETH-BTC and LTC-BTC are not replicated as Genesis order
   books because Parity supports only two decimal places in prices at the moment.
 
-- A scaling factor of 1000 is applied to all quantities as Parity supports
-  only integer quantities at the moment.
-
 ## Usage
 
 Launch Genesis:

@@ -31,27 +31,27 @@ pmr_request_port: 6001
 fix_port: 4010
 
 price_integer_digits: 4
-size_integer_digits: 10
+size_integer_digits: 4
 
 products:
   - id: BTC-USD
     price_fraction_digits: 2
-    size_fraction_digits: 0
+    size_fraction_digits: 8
   - id: BTC-EUR
     price_fraction_digits: 2
-    size_fraction_digits: 0
+    size_fraction_digits: 8
   - id: BTC-GBP
     price_fraction_digits: 2
-    size_fraction_digits: 0
+    size_fraction_digits: 8
   - id: ETH-USD
     price_fraction_digits: 2
-    size_fraction_digits: 0
+    size_fraction_digits: 8
   - id: ETH-EUR
     price_fraction_digits: 2
-    size_fraction_digits: 0
+    size_fraction_digits: 8
   - id: LTC-USD
     price_fraction_digits: 2
-    size_fraction_digits: 0
+    size_fraction_digits: 8
   - id: LTC-EUR
     price_fraction_digits: 2
-    size_fraction_digits: 0
+    size_fraction_digits: 8

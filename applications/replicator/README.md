@@ -21,13 +21,6 @@ orders with better price or time priority as well.
 
 Genesis Replicator requires Node 6 or newer.
 
-## Limitations
-
-Genesis Replicator has the following limitations:
-
-- A scaling factor of 1000 is applied to all quantities as Parity supports
-  only integer quantities at the moment.
-
 ## Configuration
 
 Genesis Replicator is configured using environment variables. The following

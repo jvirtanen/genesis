@@ -2,9 +2,9 @@
 
 const OrderMapper = require('./OrderMapper');
 
-const MAX_PRICE = 1000000000;
+const MAX_PRICE = 100000000000000;
 
-const MAX_QUANTITY = 1000000000;
+const MAX_QUANTITY = 100000000000000;
 
 class MessageTranslator {
 
@@ -99,7 +99,7 @@ function translateSide(gdaxSide) {
 }
 
 function translateQuantity(gdaxQuantity) {
-  return Math.round(1000 * Number(gdaxQuantity));
+  return Math.round(100000000 * Number(gdaxQuantity));
 }
 
 function translatePrice(gdaxPrice) {
