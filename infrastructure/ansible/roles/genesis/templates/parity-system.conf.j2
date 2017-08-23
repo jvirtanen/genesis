@@ -22,7 +22,7 @@ order-entry {
 }
 
 instruments = [
-{% for product_id in product_ids %}
-  {{ product_id }},
+{% for product in products %}
+  {{ product['id'] }},
 {% endfor %}
 ]

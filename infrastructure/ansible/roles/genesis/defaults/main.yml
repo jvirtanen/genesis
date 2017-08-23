@@ -6,7 +6,7 @@ nassau_archive_url: "{{ nassau_url }}/releases/download/{{ nassau_version }}/{{ 
 nassau_archive_dir: "nassau-{{ nassau_version }}"
 
 parity_url: "https://github.com/paritytrading/parity"
-parity_version: "0.6.0"
+parity_version: "0.7.0"
 parity_archive: "parity-{{ parity_version }}.zip"
 parity_archive_url: "{{ parity_url }}/releases/download/{{ parity_version }}/{{ parity_archive }}"
 parity_archive_dir: "parity-{{ parity_version }}"
@@ -30,11 +30,28 @@ pmr_request_port: 6001
 
 fix_port: 4010
 
-product_ids:
-  - BTC-USD
-  - BTC-EUR
-  - BTC-GBP
-  - ETH-USD
-  - ETH-EUR
-  - LTC-USD
-  - LTC-EUR
+price_integer_digits: 4
+size_integer_digits: 10
+
+products:
+  - id: BTC-USD
+    price_fraction_digits: 2
+    size_fraction_digits: 0
+  - id: BTC-EUR
+    price_fraction_digits: 2
+    size_fraction_digits: 0
+  - id: BTC-GBP
+    price_fraction_digits: 2
+    size_fraction_digits: 0
+  - id: ETH-USD
+    price_fraction_digits: 2
+    size_fraction_digits: 0
+  - id: ETH-EUR
+    price_fraction_digits: 2
+    size_fraction_digits: 0
+  - id: LTC-USD
+    price_fraction_digits: 2
+    size_fraction_digits: 0
+  - id: LTC-EUR
+    price_fraction_digits: 2
+    size_fraction_digits: 0

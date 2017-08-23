@@ -78,9 +78,6 @@ marketData.on('message', (payload) => {
   case 'X':
     book.reduce(message.orderNumber, message.canceledQuantity);
     break;
-  case 'D':
-    book.delete(message.orderNumber);
-    break;
   default:
     break;
   }

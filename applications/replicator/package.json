@@ -5,8 +5,8 @@
   },
   "dependencies": {
     "collections": "5.0.6",
-    "parity-pmd": "0.3.0",
-    "parity-poe": "0.2.0",
+    "parity-pmd": "0.4.0",
+    "parity-poe": "0.3.0",
     "request": "2.81.0",
     "soupbintcp": "0.2.0",
     "ws": "3.0.0"

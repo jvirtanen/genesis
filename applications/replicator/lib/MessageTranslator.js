@@ -103,7 +103,7 @@ function translateQuantity(gdaxQuantity) {
 }
 
 function translatePrice(gdaxPrice) {
-  return 100 * Math.round(100 * Number(gdaxPrice));
+  return Math.round(100 * Number(gdaxPrice));
 }
 
 function contra(paritySide) {

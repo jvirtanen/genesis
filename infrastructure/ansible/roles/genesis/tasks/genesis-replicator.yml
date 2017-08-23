@@ -22,15 +22,15 @@
     src="genesis-replicator.service.j2"
     dest="/etc/systemd/system/{{ dest }}"
   vars:
-    dest: "genesis-replicator-{{ item | lower }}.service"
-    product_id: "{{ item }}"
-  with_items: "{{ product_ids }}"
+    dest: "genesis-replicator-{{ item['id'] | lower }}.service"
+    product_id: "{{ item['id'] }}"
+  with_items: "{{ products }}"
   become: yes
   notify: reload systemd
 - name: enable services
   service:
-    name: "genesis-replicator-{{ item | lower }}"
+    name: "genesis-replicator-{{ item['id'] | lower }}"
     enabled: yes
     state: started
-  with_items: "{{ product_ids }}"
+  with_items: "{{ products }}"
   become: yes

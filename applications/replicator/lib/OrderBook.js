@@ -54,14 +54,6 @@ class OrderBook {
       remove(this, order);
   }
 
-  delete(orderNumber) {
-    const order = this._orderNumbers.get(orderNumber);
-    if (!order)
-      return;
-
-    remove(this, order);
-  }
-
   execute(side, orderId, executedQuantity) {
     const order = this._orderIds.get(orderId);
     if (!order)

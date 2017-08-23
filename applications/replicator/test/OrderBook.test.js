@@ -24,7 +24,7 @@ describe('OrderBook', function () {
 
     book.add(1, 'B', 1000, 100);
     book.associate(1, 'a');
-    book.delete(1);
+    book.reduce(1, 100);
 
     assert.equal(book.execute('B', 'a', 100), 0);
   });
@@ -63,16 +63,6 @@ describe('OrderBook', function () {
     book.add(1, 'B', 1000, 100);
     book.associate(1, 'a');
     book.reduce(1, 100);
-
-    assert.equal(book.execute('B', 'a', 100), 0);
-  });
-
-  it('handles deletion', function () {
-    const book = new OrderBook();
-
-    book.add(1, 'B', 1000, 100);
-    book.associate(1, 'a');
-    book.delete(1);
 
     assert.equal(book.execute('B', 'a', 100), 0);
   });
