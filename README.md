@@ -65,7 +65,7 @@ prompt. For example, to enter a buy order of 1 BTC for $5,000.00 on Genesis,
 use the `buy` command:
 
 ```
-> buy 1000 BTC-USD 5000.00
+> buy 1 BTC-USD 5000.00
 ```
 
 Depending on the current USD price of BTC on GDAX, the order might immediately
