@@ -16,6 +16,9 @@ const GDAX_PRODUCT_ID = String(process.env.GDAX_PRODUCT_ID || 'BTC-USD');
 
 const PARITY_INSTRUMENT = instrument(process.env.PARITY_INSTRUMENT || GDAX_PRODUCT_ID);
 
+const PARITY_PRICE_FACTOR = Number(process.env.PARITY_PRICE_FACTOR || 100);
+const PARITY_SIZE_FACTOR = Number(process.env.PARITY_SIZE_FACTOR || 100000000);
+
 const PARITY_MARKET_DATA_ADDRESS = String(process.env.PARITY_MARKET_DATA_ADDRESS);
 const PARITY_MARKET_DATA_PORT = Number(process.env.PARITY_MARKET_DATA_PORT);
 const PARITY_MARKET_DATA_USERNAME = String(process.env.PARITY_MARKET_DATA_USERNAME);
@@ -83,7 +86,7 @@ marketData.on('message', (payload) => {
   }
 });
 
-const translator = new MessageTranslator(book, PARITY_INSTRUMENT);
+const translator = new MessageTranslator(book, PARITY_INSTRUMENT, PARITY_PRICE_FACTOR, PARITY_SIZE_FACTOR);
 
 gdax.connect({
   apiUrl: GDAX_API_URL,

@@ -1,17 +1,19 @@
 [Unit]
-Description=Genesis Replicator {{ product_id }}
+Description=Genesis Replicator {{ product['id'] }}
 After=market-data-gateway.target parity-system.target
 
 [Service]
-Environment=GDAX_PRODUCT_ID={{ product_id }}
+Environment=GDAX_PRODUCT_ID={{ product['id'] }}
 Environment=PARITY_MARKET_DATA_ADDRESS=127.0.0.1
 Environment=PARITY_MARKET_DATA_PORT={{ pmd_port }}
 Environment=PARITY_MARKET_DATA_USERNAME=
 Environment=PARITY_MARKET_DATA_PASSWORD=
 Environment=PARITY_ORDER_ENTRY_ADDRESS=127.0.0.1
 Environment=PARITY_ORDER_ENTRY_PORT={{ poe_port }}
-Environment=PARITY_ORDER_ENTRY_USERNAME={{ product_id | replace("-", "") }}
-Environment=PARITY_ORDER_ENTRY_PASSWORD={{ product_id | replace("-", "") }}
+Environment=PARITY_ORDER_ENTRY_USERNAME={{ product['id'] | replace("-", "") }}
+Environment=PARITY_ORDER_ENTRY_PASSWORD={{ product['id'] | replace("-", "") }}
+Environment=PARITY_PRICE_FACTOR={{ 10 ** product['price_fraction_digits'] }}
+Environment=PARITY_SIZE_FACTOR={{ 10 ** product['size_fraction_digits'] }}
 ExecStartPre=/bin/sleep 5
 ExecStart=/usr/bin/nodejs /opt/genesis-replicator/bin/genesis-replicator
 Restart=on-failure

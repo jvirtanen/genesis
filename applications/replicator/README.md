@@ -54,6 +54,12 @@ The following environment variables are optional:
 
 - `PARITY_INSTRUMENT`: The instrument on Parity. Defaults to `$GDAX_PRODUCT_ID`.
 
+- `PARITY_PRICE_FACTOR`: The scaling factor for prices on Parity. Defaults to
+  `100`.
+
+- `PARITY_SIZE_FACTOR`: The scaling factor for sizes on Parity. Defaults to
+  `100000000`.
+
 ## Development
 
 Install the dependencies:

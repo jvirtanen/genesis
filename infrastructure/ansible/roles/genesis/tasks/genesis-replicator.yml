@@ -23,7 +23,7 @@
     dest="/etc/systemd/system/{{ dest }}"
   vars:
     dest: "genesis-replicator-{{ item['id'] | lower }}.service"
-    product_id: "{{ item['id'] }}"
+    product: "{{ item }}"
   with_items: "{{ products }}"
   become: yes
   notify: reload systemd

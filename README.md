@@ -7,8 +7,8 @@ Genesis replicates [GDAX][], the digital currency exchange operated by
   [Coinbase]: https://www.coinbase.com
 
 Genesis listens to GDAX market data and replicates market events in real time
-on a local [Parity][] instance. The GDAX order books BTC-USD, BTC-EUR, BTC-GBP,
-ETH-USD, ETH-EUR, LTC-USD, and LTC-EUR are replicated as Genesis order books.
+on a local [Parity][] instance. All GDAX order books are replicated as Genesis
+order books.
 
   [Parity]: https://github.com/paritytrading/parity
 
@@ -16,13 +16,6 @@ Genesis requires [Vagrant][] and [VirtualBox][].
 
   [Vagrant]: https://www.vagrantup.com
   [VirtualBox]: https://www.virtualbox.org
-
-## Limitations
-
-Genesis has the following limitations:
-
-- The GDAX order books ETH-BTC and LTC-BTC are not replicated as Genesis order
-  books because Parity supports only two decimal places in prices at the moment.
 
 ## Usage
 

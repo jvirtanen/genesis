@@ -8,10 +8,12 @@ const MAX_QUANTITY = 100000000000000;
 
 class MessageTranslator {
 
-  constructor(book, instrument) {
+  constructor(book, instrument, priceFactor, sizeFactor) {
     this._book = book;
     this._instrument = instrument;
     this._mapper = new OrderMapper();
+    this._priceFactor = priceFactor;
+    this._sizeFactor = sizeFactor;
   }
 
   translate(gdaxMessage) {
@@ -32,11 +34,11 @@ class MessageTranslator {
 }
 
 function translateOpen(self, gdaxMessage) {
-  const price = translatePrice(gdaxMessage.price);
+  const price = translatePrice(self, gdaxMessage.price);
   if (price > MAX_PRICE)
     return null;
 
-  const quantity = translateQuantity(gdaxMessage.remaining_size);
+  const quantity = translateQuantity(self, gdaxMessage.remaining_size);
 
   return {
     messageType: 'E',
@@ -59,14 +61,14 @@ function translateChange(self, gdaxMessage) {
   return {
     messageType: 'X',
     orderId: orderId,
-    quantity: translateQuantity(gdaxMessage.new_size),
+    quantity: translateQuantity(self, gdaxMessage.new_size),
   };
 }
 
 function translateMatch(self, gdaxMessage) {
   const side = translateSide(gdaxMessage.side);
   const orderId = self._mapper.translate(gdaxMessage.maker_order_id);
-  const size = translateQuantity(gdaxMessage.size);
+  const size = translateQuantity(self, gdaxMessage.size);
 
   const quantity = self._book.execute(side, orderId, size);
   if (quantity === 0)
@@ -78,7 +80,7 @@ function translateMatch(self, gdaxMessage) {
     side: contra(side),
     instrument: self._instrument,
     quantity: quantity,
-    price: translatePrice(gdaxMessage.price),
+    price: translatePrice(self, gdaxMessage.price),
   };
 }
 
@@ -98,12 +100,12 @@ function translateSide(gdaxSide) {
   return gdaxSide === 'buy' ? 'B' : 'S';
 }
 
-function translateQuantity(gdaxQuantity) {
-  return Math.round(100000000 * Number(gdaxQuantity));
+function translateQuantity(self, gdaxQuantity) {
+  return Math.round(self._sizeFactor * Number(gdaxQuantity));
 }
 
-function translatePrice(gdaxPrice) {
-  return Math.round(100 * Number(gdaxPrice));
+function translatePrice(self, gdaxPrice) {
+  return Math.round(self._priceFactor * Number(gdaxPrice));
 }
 
 function contra(paritySide) {
