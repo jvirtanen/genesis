@@ -1,6 +1,6 @@
 ---
 - name: install openjdk
-  apt:
+  package:
     name: openjdk-8-jre
     state: present
   become: yes

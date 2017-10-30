@@ -1,6 +1,6 @@
 ---
 - name: install unzip
-  apt:
+  package:
     name: unzip
     state: present
   become: yes
