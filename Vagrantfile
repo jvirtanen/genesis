@@ -4,7 +4,7 @@ Vagrant.configure("2") do |config|
   config.vm.network "private_network", ip: "192.168.10.10"
 
   config.vm.provider "virtualbox" do |virtualbox|
-    virtualbox.memory = "1024"
+    virtualbox.memory = "2048"
   end
 
   config.vm.provision "shell" do |shell|
