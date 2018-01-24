@@ -1,8 +1,8 @@
 ---
-- include: base.yml
-- include: openjdk.yml
-- include: nassau.yml
-- include: parity.yml
-- include: nginx.yml
-- include: node.yml
-- include: genesis-replicator.yml
+- import_tasks: base.yml
+- import_tasks: openjdk.yml
+- import_tasks: nassau.yml
+- import_tasks: parity.yml
+- import_tasks: nginx.yml
+- import_tasks: node.yml
+- import_tasks: genesis-replicator.yml
