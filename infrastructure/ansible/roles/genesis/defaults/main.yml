@@ -49,6 +49,9 @@ products:
   - id: BCH-BTC
     price_fraction_digits: 5
     size_fraction_digits: 8
+  - id: BCH-EUR
+    price_fraction_digits: 2
+    size_fraction_digits: 8
   - id: ETH-USD
     price_fraction_digits: 2
     size_fraction_digits: 8
