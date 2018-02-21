@@ -1,0 +1,26 @@
+#
+# This is a Parity Trade Reporter configuration file for Genesis. For more
+# information on Parity, see:
+#
+#   https://github.com/paritytrading/parity
+#
+
+trade-report {
+  multicast-interface = {{ host_address }}
+  multicast-group     = {{ pmr_multicast_group }}
+  multicast-port      = {{ pmr_multicast_port }}
+  request-address     = {{ guest_address }}
+  request-port        = {{ pmr_request_port }}
+}
+
+instruments {
+  price-integer-digits = {{ price_integer_digits }}
+  size-integer-digits  = {{ size_integer_digits }}
+
+{% for product in products %}
+  {{ product['id'] }} {
+    price-fraction-digits = {{ product['price_fraction_digits'] }}
+    size-fraction-digits  = {{ product['size_fraction_digits'] }}
+  }
+{% endfor %}
+}
