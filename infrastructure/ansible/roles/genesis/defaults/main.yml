@@ -30,7 +30,7 @@ pmr_request_port: 6001
 
 fix_port: 4010
 
-price_integer_digits: 4
+price_integer_digits: 5
 size_integer_digits: 4
 
 products:
