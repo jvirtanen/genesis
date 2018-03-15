@@ -129,6 +129,8 @@ Genesis is a Ubuntu 16.04 server that runs the following services:
 
 ## License
 
-Copyright 2017 Jussi Virtanen.
+Copyright 2017 Jussi Virtanen and [contributors][].
+
+  [contributors]: https://github.com/jvirtanen/genesis/graphs/contributors
 
 Released under the Apache License, Version 2.0. See `LICENSE.txt` for details.
