@@ -34,7 +34,7 @@ const book = new OrderBook();
 const orderIds = new Map();
 
 const orderEntry = login({
-  address: PARITY_ORDER_ENTRY_ADDRESS,
+  host: PARITY_ORDER_ENTRY_ADDRESS,
   port: PARITY_ORDER_ENTRY_PORT,
   username: PARITY_ORDER_ENTRY_USERNAME,
   password: PARITY_ORDER_ENTRY_PASSWORD,
@@ -50,7 +50,7 @@ orderEntry.on('message', (payload) => {
 });
 
 const marketData = login({
-  address: PARITY_MARKET_DATA_ADDRESS,
+  host: PARITY_MARKET_DATA_ADDRESS,
   port: PARITY_MARKET_DATA_PORT,
   username: PARITY_MARKET_DATA_USERNAME,
   password: PARITY_MARKET_DATA_PASSWORD,
