@@ -20,13 +20,13 @@
   become: yes
 - name: create configuration file
   template:
-    src="nassau-market-data-gateway.json.j2"
-    dest="/opt/nassau/nassau-market-data-gateway.json"
+    src: "nassau-market-data-gateway.json.j2"
+    dest: "/opt/nassau/nassau-market-data-gateway.json"
   become: yes
 - name: create unit file
   template:
-    src="java-application.service.j2"
-    dest="/etc/systemd/system/nassau-market-data-gateway.service"
+    src: "java-application.service.j2"
+    dest: "/etc/systemd/system/nassau-market-data-gateway.service"
   vars:
     name: "Nassau Market Data Gateway"
     jar_file: "/opt/nassau/nassau-soupbintcp-gateway.jar"

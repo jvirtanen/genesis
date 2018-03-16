@@ -53,8 +53,8 @@
   become: yes
 - name: create unit files
   template:
-    src="java-application.service.j2"
-    dest="/etc/systemd/system/{{ item.dest }}"
+    src: "java-application.service.j2"
+    dest: "/etc/systemd/system/{{ item.dest }}"
   vars:
     name: "{{ item.name }}"
     jar_file: "{{ item.jar_file }}"
