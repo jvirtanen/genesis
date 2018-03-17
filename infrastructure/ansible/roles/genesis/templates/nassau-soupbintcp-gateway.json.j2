@@ -1,0 +1,13 @@
+{
+  "upstream": {
+    "multicast-interface": "{{ multicast_interface }}",
+    "multicast-group": "{{ multicast_group }}",
+    "multicast-port": "{{ multicast_port }}",
+    "request-address": "127.0.0.1",
+    "request-port": "{{ request_port }}"
+  },
+  "downstream": {
+    "address": "0.0.0.0",
+    "port": {{ port }}
+  }
+}

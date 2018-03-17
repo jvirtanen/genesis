@@ -20,8 +20,15 @@
   become: yes
 - name: create configuration file
   template:
-    src: "nassau-market-data-gateway.json.j2"
+    src: "nassau-soupbintcp-gateway.json.j2"
     dest: "/opt/nassau/nassau-market-data-gateway.json"
+  vars:
+    multicast_interface: "{{ pmd_multicast_interface }}"
+    multicast_group: "{{ pmd_multicast_group }}"
+    multicast_port: "{{ pmd_multicast_port }}"
+    request_address: "{{ guest_address }}"
+    request_port: "{{ pmd_request_port }}"
+    port: "{{ pmd_port }}"
   become: yes
 - name: create unit file
   template:
