@@ -28,6 +28,8 @@ pmr_multicast_group: "224.0.0.1"
 pmr_multicast_port: 6000
 pmr_request_port: 6001
 
+pmr_port: 6000
+
 fix_port: 4010
 
 price_integer_digits: 5

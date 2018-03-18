@@ -86,11 +86,12 @@ Use the `orders` command to list open orders:
 
 Genesis accepts inbound TCP connections at the following ports.
 
-Role        | Protocol | Transport  | Port
-------------|----------|------------|-----
-Order entry | [POE][]  | SoupBinTCP | 4000
-Order entry | [FIX][]  | TCP        | 4010
-Market data | [PMD][]  | SoupBinTCP | 5000
+Role             | Protocol | Transport  | Port
+-----------------|----------|------------|-----
+Order entry      | [POE][]  | SoupBinTCP | 4000
+Order entry      | [FIX][]  | TCP        | 4010
+Market data      | [PMD][]  | SoupBinTCP | 5000
+Market reporting | [PMR][]  | SoupBinTCP | 6000
 
 Genesis publishes outbound UDP datagrams to the following multicast groups.
 
@@ -118,6 +119,10 @@ Genesis is a Ubuntu 16.04 server that runs the following services:
 - `nassau-market-data-gateway.service`: a Nassau SoupBinTCP Gateway process
   accepting inbound market data connections using SoupBinTCP as the underlying
   transport protocol.
+
+- `nassau-market-reporting-gateway.service`: a Nassau SoupBinTCP Gateway
+  process accepting inbound market reporting connections using SoupBinTCP as
+  the underlying transport protocol.
 
 - `genesis-replicator-btc-usd.service`: a [Genesis Replicator][] process
   replicating the GDAX order book BTC-USD as the Genesis order book BTC-USD.

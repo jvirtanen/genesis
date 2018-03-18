@@ -18,31 +18,54 @@
     src: "/tmp/{{ nassau_archive_dir }}/applications/soupbintcp-gateway/nassau-soupbintcp-gateway.jar"
     dest: "/opt/nassau/nassau-soupbintcp-gateway.jar"
   become: yes
-- name: create configuration file
+- name: create configuration files
   template:
     src: "nassau-soupbintcp-gateway.json.j2"
-    dest: "/opt/nassau/nassau-market-data-gateway.json"
+    dest: "{{ item.dest }}"
   vars:
-    multicast_interface: "{{ pmd_multicast_interface }}"
-    multicast_group: "{{ pmd_multicast_group }}"
-    multicast_port: "{{ pmd_multicast_port }}"
+    multicast_interface: "{{ item.multicast_interface }}"
+    multicast_group: "{{ item.multicast_group }}"
+    multicast_port: "{{ item.multicast_port }}"
     request_address: "{{ guest_address }}"
-    request_port: "{{ pmd_request_port }}"
-    port: "{{ pmd_port }}"
+    request_port: "{{ item.request_port }}"
+    port: "{{ item.port }}"
+  with_items:
+    - dest: "/opt/nassau/nassau-market-data-gateway.json"
+      multicast_interface: "{{ pmd_multicast_interface }}"
+      multicast_group: "{{ pmd_multicast_group }}"
+      multicast_port: "{{ pmd_multicast_port }}"
+      request_port: "{{ pmd_request_port }}"
+      port: "{{ pmd_port }}"
+    - dest: "/opt/nassau/nassau-market-reporting-gateway.json"
+      multicast_interface: "{{ pmr_multicast_interface }}"
+      multicast_group: "{{ pmr_multicast_group }}"
+      multicast_port: "{{ pmr_multicast_port }}"
+      request_port: "{{ pmr_request_port }}"
+      port: "{{ pmr_port }}"
   become: yes
-- name: create unit file
+- name: create unit files
   template:
     src: "java-application.service.j2"
-    dest: "/etc/systemd/system/nassau-market-data-gateway.service"
+    dest: "{{ item.dest }}"
   vars:
-    name: "Nassau Market Data Gateway"
+    name: "{{ item.name }}"
     jar_file: "/opt/nassau/nassau-soupbintcp-gateway.jar"
-    configuration_file: "/opt/nassau/nassau-market-data-gateway.json"
+    configuration_file: "{{ item.configuration_file }}"
+  with_items:
+    - dest: "/etc/systemd/system/nassau-market-data-gateway.service"
+      name: "Nassau Market Data Gateway"
+      configuration_file: "/opt/nassau/nassau-market-data-gateway.json"
+    - dest: "/etc/systemd/system/nassau-market-reporting-gateway.service"
+      name: "Nassau Market Reporting Gateway"
+      configuration_file: "/opt/nassau/nassau-market-reporting-gateway.json"
   become: yes
   notify: reload systemd
-- name: enable service
+- name: enable services
   service:
-    name: "nassau-market-data-gateway"
+    name: "{{ item }}"
     enabled: yes
     state: started
+  with_items:
+    - "nassau-market-data-gateway"
+    - "nassau-market-reporting-gateway"
   become: yes
