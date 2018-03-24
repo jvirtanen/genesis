@@ -107,7 +107,7 @@ Market reporting | [PMR][]  | MoldUDP64 | 224.0.0.1       | 6000           | 600
 
 ## Architecture
 
-Genesis is a Ubuntu 16.04 server that runs the following services:
+Genesis is an Ubuntu 16.04 server that runs the following services:
 
 - `parity-system.service`: a Parity Trading System process accepting inbound
   order entry connections and publishing market data and market reports using
