@@ -5,8 +5,12 @@ Genesis replicates [Coinbase Pro][] in a local environment.
   [Coinbase Pro]: https://pro.coinbase.com
 
 Genesis listens to Coinbase Pro market data and replicates market events in
-real time on a local [Parity][] instance. All Coinbase Pro order books are
-replicated as Genesis order books.
+real time on a local [Parity][] instance. The following Coinbase Pro order
+books are replicated as Genesis order books:
+
+  - BTC-USD
+  - ETH-USD
+  - ETH-BTC
 
   [Parity]: https://github.com/paritytrading/parity
 

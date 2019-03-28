@@ -39,36 +39,9 @@ products:
   - id: BTC-USD
     price_fraction_digits: 2
     size_fraction_digits: 8
-  - id: BTC-EUR
-    price_fraction_digits: 2
-    size_fraction_digits: 8
-  - id: BTC-GBP
-    price_fraction_digits: 2
-    size_fraction_digits: 8
-  - id: BCH-USD
-    price_fraction_digits: 2
-    size_fraction_digits: 8
-  - id: BCH-BTC
-    price_fraction_digits: 5
-    size_fraction_digits: 8
-  - id: BCH-EUR
-    price_fraction_digits: 2
-    size_fraction_digits: 8
   - id: ETH-USD
     price_fraction_digits: 2
     size_fraction_digits: 8
   - id: ETH-BTC
     price_fraction_digits: 5
-    size_fraction_digits: 8
-  - id: ETH-EUR
-    price_fraction_digits: 2
-    size_fraction_digits: 8
-  - id: LTC-USD
-    price_fraction_digits: 2
-    size_fraction_digits: 8
-  - id: LTC-BTC
-    price_fraction_digits: 5
-    size_fraction_digits: 8
-  - id: LTC-EUR
-    price_fraction_digits: 2
     size_fraction_digits: 8
