@@ -11,16 +11,16 @@ class OrderMapper {
     return orderId(this._nextParityId++);
   }
 
-  associate(gdaxId) {
+  associate(coinbaseId) {
     const parityId = this.generate();
 
-    this._parityIds.set(gdaxId, parityId);
+    this._parityIds.set(coinbaseId, parityId);
 
     return parityId;
   }
 
-  translate(gdaxId) {
-    return this._parityIds.get(gdaxId);
+  translate(coinbaseId) {
+    return this._parityIds.get(coinbaseId);
   }
 
 }

@@ -16,16 +16,16 @@ class MessageTranslator {
     this._sizeFactor = sizeFactor;
   }
 
-  translate(gdaxMessage) {
-    switch (gdaxMessage.type) {
+  translate(coinbaseMessage) {
+    switch (coinbaseMessage.type) {
     case 'open':
-      return translateOpen(this, gdaxMessage);
+      return translateOpen(this, coinbaseMessage);
     case 'change':
-      return translateChange(this, gdaxMessage);
+      return translateChange(this, coinbaseMessage);
     case 'match':
-      return translateMatch(this, gdaxMessage);
+      return translateMatch(this, coinbaseMessage);
     case 'done':
-      return translateDone(this, gdaxMessage);
+      return translateDone(this, coinbaseMessage);
     default:
       return null;
     }
@@ -33,42 +33,42 @@ class MessageTranslator {
 
 }
 
-function translateOpen(self, gdaxMessage) {
-  const price = translatePrice(self, gdaxMessage.price);
+function translateOpen(self, coinbaseMessage) {
+  const price = translatePrice(self, coinbaseMessage.price);
   if (price > MAX_PRICE)
     return null;
 
-  const quantity = translateQuantity(self, gdaxMessage.remaining_size);
+  const quantity = translateQuantity(self, coinbaseMessage.remaining_size);
 
   return {
     messageType: 'E',
-    orderId: self._mapper.associate(gdaxMessage.order_id),
-    side: translateSide(gdaxMessage.side),
+    orderId: self._mapper.associate(coinbaseMessage.order_id),
+    side: translateSide(coinbaseMessage.side),
     instrument: self._instrument,
     quantity: Math.min(quantity, MAX_QUANTITY),
     price: price,
   };
 }
 
-function translateChange(self, gdaxMessage) {
-  if (!gdaxMessage.new_size)
+function translateChange(self, coinbaseMessage) {
+  if (!coinbaseMessage.new_size)
     return null;
 
-  const orderId = self._mapper.translate(gdaxMessage.order_id);
+  const orderId = self._mapper.translate(coinbaseMessage.order_id);
   if (!orderId)
     return null;
 
   return {
     messageType: 'X',
     orderId: orderId,
-    quantity: translateQuantity(self, gdaxMessage.new_size),
+    quantity: translateQuantity(self, coinbaseMessage.new_size),
   };
 }
 
-function translateMatch(self, gdaxMessage) {
-  const side = translateSide(gdaxMessage.side);
-  const orderId = self._mapper.translate(gdaxMessage.maker_order_id);
-  const size = translateQuantity(self, gdaxMessage.size);
+function translateMatch(self, coinbaseMessage) {
+  const side = translateSide(coinbaseMessage.side);
+  const orderId = self._mapper.translate(coinbaseMessage.maker_order_id);
+  const size = translateQuantity(self, coinbaseMessage.size);
 
   const quantity = self._book.execute(side, orderId, size);
   if (quantity === 0)
@@ -80,12 +80,12 @@ function translateMatch(self, gdaxMessage) {
     side: contra(side),
     instrument: self._instrument,
     quantity: quantity,
-    price: translatePrice(self, gdaxMessage.price),
+    price: translatePrice(self, coinbaseMessage.price),
   };
 }
 
-function translateDone(self, gdaxMessage) {
-  const orderId = self._mapper.translate(gdaxMessage.order_id);
+function translateDone(self, coinbaseMessage) {
+  const orderId = self._mapper.translate(coinbaseMessage.order_id);
   if (!orderId)
     return null;
 
@@ -96,16 +96,16 @@ function translateDone(self, gdaxMessage) {
   };
 }
 
-function translateSide(gdaxSide) {
-  return gdaxSide === 'buy' ? 'B' : 'S';
+function translateSide(coinbaseSide) {
+  return coinbaseSide === 'buy' ? 'B' : 'S';
 }
 
-function translateQuantity(self, gdaxQuantity) {
-  return Math.round(self._sizeFactor * Number(gdaxQuantity));
+function translateQuantity(self, coinbaseQuantity) {
+  return Math.round(self._sizeFactor * Number(coinbaseQuantity));
 }
 
-function translatePrice(self, gdaxPrice) {
-  return Math.round(self._priceFactor * Number(gdaxPrice));
+function translatePrice(self, coinbasePrice) {
+  return Math.round(self._priceFactor * Number(coinbasePrice));
 }
 
 function contra(paritySide) {

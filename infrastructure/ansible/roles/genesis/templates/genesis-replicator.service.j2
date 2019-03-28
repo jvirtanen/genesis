@@ -3,7 +3,7 @@ Description=Genesis Replicator {{ product['id'] }}
 After=market-data-gateway.target parity-system.target
 
 [Service]
-Environment=GDAX_PRODUCT_ID={{ product['id'] }}
+Environment=COINBASE_PRODUCT_ID={{ product['id'] }}
 Environment=PARITY_MARKET_DATA_ADDRESS=127.0.0.1
 Environment=PARITY_MARKET_DATA_PORT={{ pmd_port }}
 Environment=PARITY_MARKET_DATA_USERNAME=

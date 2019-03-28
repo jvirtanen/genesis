@@ -1,23 +1,23 @@
 # Genesis Replicator
 
-Genesis Replicator replicates a [GDAX][] order book as a [Parity][] order
-book.
+Genesis Replicator replicates a [Coinbase Pro][] order book as a [Parity][]
+order book.
 
-  [GDAX]: https://www.gdax.com
+  [Coinbase Pro]: https://pro.coinbase.com
   [Parity]: https://github.com/paritytrading/parity
 
-Genesis Replicator subscribes to a product on [GDAX WebSocket Feed][] and
-connects to the market data and order entry interfaces of a Parity instance.
-Then it starts translating market data messages from GDAX to order entry
-messages on Parity.
+Genesis Replicator subscribes to a product on [Coinbase Pro WebSocket Feed][]
+and connects to the market data and order entry interfaces of a Parity
+instance. Then it starts translating market data messages from Coinbase Pro to
+order entry messages on Parity.
 
-  [GDAX WebSocket Feed]: https://docs.gdax.com/#websocket-feed
+  [Coinbase Pro WebSocket Feed]: https://docs.pro.coinbase.com/#websocket-feed
 
 Genesis Replicator listens to Parity market data and maintains a reconstructed
 Parity order book. When a market data message indicating a trade is received
-from GDAX, it consults its reconstruction and adjusts the quantity of the
-translation to account not only for the replicated order but all non-replicated
-orders with better price or time priority as well.
+from Coinbase Pro, it consults its reconstruction and adjusts the quantity of
+the translation to account not only for the replicated order but all
+non-replicated orders with better price or time priority as well.
 
 Genesis Replicator requires Node 6 or newer.
 
@@ -45,14 +45,17 @@ environment variables are mandatory:
 
 The following environment variables are optional:
 
-- `GDAX_API_URL`: The GDAX REST API URL. Defaults to `https://api.gdax.com`.
+- `COINBASE_API_URL`: The Coinbase Pro REST API URL. Defaults to
+  `https://api.pro.coinbase.com`.
 
-- `GDAX_WEBSOCKET_FEED_URL`: The GDAX WebSocket Feed URL. Defaults to
-  `wss://ws-feed.gdax.com`.
+- `COINBASE_WEBSOCKET_FEED_URL`: The Coinbase Pro WebSocket Feed URL. Defaults
+  to `wss://ws-feed.pro.coinbase.com`.
 
-- `GDAX_PRODUCT_ID`: The product identifier on GDAX. Defaults to `BTC-USD`.
+- `COINBASE_PRODUCT_ID`: The product identifier on Coinbase Pro. Defaults to
+  `BTC-USD`.
 
-- `PARITY_INSTRUMENT`: The instrument on Parity. Defaults to `$GDAX_PRODUCT_ID`.
+- `PARITY_INSTRUMENT`: The instrument on Parity. Defaults to
+  `$COINBASE_PRODUCT_ID`.
 
 - `PARITY_PRICE_FACTOR`: The scaling factor for prices on Parity. Defaults to
   `100`.

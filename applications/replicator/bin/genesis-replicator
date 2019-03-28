@@ -6,15 +6,15 @@ const MessageTranslator = require('../lib/MessageTranslator');
 const OrderBook = require('../lib/OrderBook');
 const PMD = require('parity-pmd');
 const POE = require('parity-poe');
-const gdax = require('../lib/gdax');
+const coinbase = require('../lib/coinbase');
 const soupbintcp = require('soupbintcp');
 
-const GDAX_API_URL = String(process.env.GDAX_API_URL || 'https://api.gdax.com');
-const GDAX_WEBSOCKET_FEED_URL = String(process.env.GDAX_WEBSOCKET_FEED_URL || 'wss://ws-feed.gdax.com');
+const COINBASE_API_URL = String(process.env.COINBASE_API_URL || 'https://api.pro.coinbase.com');
+const COINBASE_WEBSOCKET_FEED_URL = String(process.env.COINBASE_WEBSOCKET_FEED_URL || 'wss://ws-feed.pro.coinbase.com');
 
-const GDAX_PRODUCT_ID = String(process.env.GDAX_PRODUCT_ID || 'BTC-USD');
+const COINBASE_PRODUCT_ID = String(process.env.COINBASE_PRODUCT_ID || 'BTC-USD');
 
-const PARITY_INSTRUMENT = instrument(process.env.PARITY_INSTRUMENT || GDAX_PRODUCT_ID);
+const PARITY_INSTRUMENT = instrument(process.env.PARITY_INSTRUMENT || COINBASE_PRODUCT_ID);
 
 const PARITY_PRICE_FACTOR = Number(process.env.PARITY_PRICE_FACTOR || 100);
 const PARITY_SIZE_FACTOR = Number(process.env.PARITY_SIZE_FACTOR || 100000000);
@@ -88,12 +88,12 @@ marketData.on('message', (payload) => {
 
 const translator = new MessageTranslator(book, PARITY_INSTRUMENT, PARITY_PRICE_FACTOR, PARITY_SIZE_FACTOR);
 
-gdax.connect({
-  apiUrl: GDAX_API_URL,
-  websocketFeedUrl: GDAX_WEBSOCKET_FEED_URL,
-  productId: GDAX_PRODUCT_ID,
-}, (gdaxMessage) => {
-  const parityMessage = translator.translate(gdaxMessage);
+coinbase.connect({
+  apiUrl: COINBASE_API_URL,
+  websocketFeedUrl: COINBASE_WEBSOCKET_FEED_URL,
+  productId: COINBASE_PRODUCT_ID,
+}, (coinbaseMessage) => {
+  const parityMessage = translator.translate(coinbaseMessage);
   if (!parityMessage)
     return;
 

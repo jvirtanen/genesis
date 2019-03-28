@@ -1,14 +1,12 @@
 # Genesis
 
-Genesis replicates [GDAX][], the digital currency exchange operated by
-[Coinbase][], in a local environment.
+Genesis replicates [Coinbase Pro][] in a local environment.
 
-  [GDAX]: https://www.gdax.com
-  [Coinbase]: https://www.coinbase.com
+  [Coinbase Pro]: https://pro.coinbase.com
 
-Genesis listens to GDAX market data and replicates market events in real time
-on a local [Parity][] instance. All GDAX order books are replicated as Genesis
-order books.
+Genesis listens to Coinbase Pro market data and replicates market events in
+real time on a local [Parity][] instance. All Coinbase Pro order books are
+replicated as Genesis order books.
 
   [Parity]: https://github.com/paritytrading/parity
 
@@ -68,8 +66,9 @@ use the `buy` command:
 > buy 1 BTC-USD 5000.00
 ```
 
-Depending on the current USD price of BTC on GDAX, the order might immediately
-execute partially or fully. Use the `trades` command to list occurred trades:
+Depending on the current USD price of BTC on Coinbase Pro, the order might
+immediately execute partially or fully. Use the `trades` command to list
+occurred trades:
 
 ```
 > trades
@@ -125,8 +124,8 @@ Genesis is an Ubuntu 16.04 server that runs the following services:
   the underlying transport protocol.
 
 - `genesis-replicator-btc-usd.service`: a [Genesis Replicator][] process
-  replicating the GDAX order book BTC-USD as the Genesis order book BTC-USD.
-  One service of this type exists for each replicated order book.
+  replicating the Coinbase Pro order book BTC-USD as the Genesis order book
+  BTC-USD. One service of this type exists for each replicated order book.
 
   [Genesis Replicator]: applications/replicator
 

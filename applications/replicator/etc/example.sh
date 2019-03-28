@@ -1,10 +1,10 @@
-# The GDAX product to replicate.
-if [ -z $GDAX_PRODUCT_ID ]; then
-  export GDAX_PRODUCT_ID="BTC-USD"
+# The Coinbase Pro product to replicate.
+if [ -z $COINBASE_PRODUCT_ID ]; then
+  export COINBASE_PRODUCT_ID="BTC-USD"
 fi
 
-# The Parity Trading System instrument to replicate the GDAX product as.
-export PARITY_INSTRUMENT="$GDAX_PRODUCT_ID"
+# The Parity Trading System instrument to replicate the Coinbase Pro product as.
+export PARITY_INSTRUMENT="$COINBASE_PRODUCT_ID"
 
 # The scaling factor for prices on Parity Trading System.
 if [ -z $PARITY_PRICE_FACTOR ]; then
@@ -29,5 +29,5 @@ export PARITY_ORDER_ENTRY_ADDRESS="127.0.0.1"
 export PARITY_ORDER_ENTRY_PORT="4000"
 
 # The username and password for order entry at Parity Trading System.
-export PARITY_ORDER_ENTRY_USERNAME="`echo $GDAX_PRODUCT_ID | tr -d -`"
+export PARITY_ORDER_ENTRY_USERNAME="`echo $COINBASE_PRODUCT_ID | tr -d -`"
 export PARITY_ORDER_ENTRY_PASSWORD="$PARITY_ORDER_ENTRY_USERNAME"
